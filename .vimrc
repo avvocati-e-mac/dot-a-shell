@@ -29,16 +29,19 @@ filetype plugin indent on	  	" Enable file type detection and do language-depend
 set history=1000				" Default = 8
 set autoread					" Ricarica il file modificato in Vim
 
+" ---- PROBLEMA con a-Shell 1.7.3 ----
+" Dopo un tot di debug credo che sia dovuto alle gestione delle cartelle,
+" comunque non sono funzioni fondamentali
+
 " Gestione dei file di swap (tutti i file di swap di Vim verranno salvati in
 " questa cartella)
-
-set directory=~/Documents/.vim/swp//	" Richiede prima la creazione della cartella: mkdir ~/.vim/swp
+" set directory=~/Documents/.vim/swp//	" Richiede prima la creazione della cartella: mkdir ~/.vim/swp
 
 " Undo persistenti tra più sessioni di Vim
+" set undofile
+" set undodir=~/Documents/.vim/undodir
 
-set undofile
-set undodir=~/Documents/.vim/undodir
-
+" ---- END PROBLEMA con a-Shell 1.7.3 ----
 " nnoremap ; : – non mi ricordo perché l'ho inserita, da problemi con il ; mentre scirvo.
 
 " --- PERSONALIZZAZIONE ASPETTO VIM ---
@@ -75,10 +78,6 @@ set formatoptions+=l				" Black magic
 
 " Splits open at the bottom and right, which is non-retarded, unlike vim defaults. (Luke Smith)
 	set splitbelow splitright
-
-" Nerd tree (Luke Smith)
-" 	map <leader>n :NERDTreeToggle<CR>
-"	autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 " Velocizza la navigazione nelle finestre di Vim (Luke Smith):
 " Ctrl più i tasti direzionali di Vim sposta da un pannello all'altro se si sono aperti 1 o più split
@@ -128,17 +127,7 @@ set formatoptions+=l				" Black magic
 	:noremap <leader>r :silent redraw!<cr>
 
 " Aprire file md convertito in PDF
-	map <leader>p :!open "%:r.pdf"<CR>
-
-" Aprire file md convertito in PDF in Zathura
-"	map <leader>z :silent !zathura "%:r".pdf<CR>
-
-" Aprire file md convertito in PDF in Skim
-"	map <leader>z :silent !open -a skim "%:r".pdf<CR>
-
-" Aprire i file MD con Zathura usando plugin pandoc-preview
-"	nnoremap <leader>z :PandocPreview<cr>
-"	let g:pandoc_preview_pdf_cmd = "zathura"
+	map <leader>p :!view "%:r.pdf"<CR>
 
 " Compila il file TEX  aperto in PDF con opzione base
 	map <leader>c :w! \| !lualatex "%"<CR>
@@ -247,24 +236,24 @@ inoremap x' ‘
 
 " Incidazione di dove si trovano i sinonimi
 
-set thesaurus+=~/.vim/thesaurus/thesaurus.txt
+" set thesaurus+=~/.vim/thesaurus/thesaurus.txt
 
 " TEST fuzione di sinonimi
 
-function! s:thesaurus()
-     let s:saved_ut = &ut
-     if &ut > 200 | let &ut = 200 | endif
-     augroup ThesaurusAuGroup
-         autocmd CursorHold,CursorHoldI <buffer>
-                     \ let &ut = s:saved_ut |
-                     \ set iskeyword-=32 |
-                     \ autocmd! ThesaurusAuGroup
-     augroup END
-     return ":set iskeyword+=32\<cr>vaWovea\<c-x>\<c-t>"
-endfunction
- 
- nnoremap <expr> <leader>t <SID>thesaurus()
-
+" function! s:thesaurus()
+"      let s:saved_ut = &ut
+"      if &ut > 200 | let &ut = 200 | endif
+"      augroup ThesaurusAuGroup
+"          autocmd CursorHold,CursorHoldI <buffer>
+"                      \ let &ut = s:saved_ut |
+"                      \ set iskeyword-=32 |
+"                      \ autocmd! ThesaurusAuGroup
+"      augroup END
+"      return ":set iskeyword+=32\<cr>vaWovea\<c-x>\<c-t>"
+" endfunction
+"  
+"  nnoremap <expr> <leader>t <SID>thesaurus()
+" 
 "  Settaggi base delle ripiegature (fold)
 
 set foldmethod=syntax
@@ -278,11 +267,11 @@ set foldcolumn=3
 
 " Salvataggio delle ripiegature (fold)
 
-augroup auto_save_folds
-autocmd!
-autocmd BufWinLeave * mkview
-autocmd BufWinEnter * silent loadview
-
+" augroup auto_save_folds
+" autocmd!
+" autocmd BufWinLeave * mkview
+" autocmd BufWinEnter * silent loadview
+" 
 
 " FUNZIONE PER RIPIEGARE I CAPITOLI NEI FILE IN MARKDOWN (fold)
 
