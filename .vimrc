@@ -11,7 +11,7 @@ au CursorHoldI * stopinsert
 " Possibilità di usare il mouse con Vim
 set mouse=a
 
-" Configurazione Netrw (broswer file di Vim)
+" Configurazione Netrw (browser file di Vim)
 
 let g:netrw_banner = 0		  " Toglie la barra in alto di spiegazioni
 let g:netrw_liststyle = 3	  " Stile dell'alberatura dei file
@@ -253,7 +253,12 @@ inoremap x' ‘
 " endfunction
 "  
 "  nnoremap <expr> <leader>t <SID>thesaurus()
-" 
+
+" SCRIPT per aprire un file sotto il cursore con il comando open di a-Shell
+" funziona anche per gli URL
+
+noremap gO :!open <cfile><CR>
+
 "  Settaggi base delle ripiegature (fold)
 
 set foldmethod=syntax
