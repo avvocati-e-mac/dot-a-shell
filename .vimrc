@@ -169,7 +169,20 @@ map <C-Up> ddkP
 map <C-Down> ddp
 
 
+" Carica il filetype giusto per LaTeX … si spera
+autocmd BufRead,BufNewFile *.tex set filetype=tex
+
 " AUTOMAZIONI UTILI
+
+" Gestine delle parentesi e delle virgolette
+inoremap <> <><Left>
+inoremap () ()<Left>
+inoremap {} {}<Left>
+inoremap [] []<Left>
+inoremap "" ""<Left>
+inoremap “” “”<Left>
+inoremap '' ''<Left>
+inoremap `` ``<Left>
 
 " Navigare con le guide (utile per spostarsi velocemente con dei segnaposti)
 
@@ -177,42 +190,60 @@ map <C-Down> ddp
  vnoremap <leader>; <Esc>/<++><Enter>"_c4l
  map <leader>; <Esc>/<++><Enter>"_c4l
 
-" Scorciatoie utili in LaTeX
-
+" SCORCIATOIE LATEX
+" INSERT MODE
 	" Enfatizzato
 	autocmd FileType tex inoremap xem \emph{}<++><Esc>T{i
 	" Grassetto
 	autocmd FileType tex inoremap xbf \textbf{}<++><Esc>T{i
 	" Corsivo
 	autocmd FileType tex inoremap xit \textit{}<++><Esc>T{i
+	" Item
+	autocmd FileType tex inoremap xte \item<space>
 	" Citazione
-	autocmd FileType tex inoremap xct \textcite{}<++><Esc>T{i
-"	autocmd FileType tex inoremap xcp \parencite{}<++><Esc>T{i
+	autocmd FileType tex inoremap xcq \quote{}<++><Esc>T{i
 	" Smallcap
 	autocmd FileType tex inoremap xsc \textsc{}<Space><++><Esc>T{i
+	" Link / ref
+	autocmd FileType tex inoremap xrf \href{}<Space><++><Esc>T{i
+	" Link a file
+	autocmd FileType tex inoremap xfr \href{run:}{<++>}<Space><++><Esc>T:i
+" VISUAL MODE
+	" Grassetto
+	autocmd Filetype tex vnoremap <leader>b c\textbf{<Esc>pi}<Esc>
+	" Corsivo
+	autocmd Filetype tex vnoremap <leader>i c\textit{<Esc>pi}<Esc>
+	" Link
+	autocmd Filetype tex vnoremap <leader>'l c\href{}{<Esc>pa}h%hi
+	" Link dalla clipboard di macOS
+	autocmd Filetype tex vnoremap <leader>'p c\href{<Esc>"+pa}{<Esc>pi}<Esc>
 
-" Dialetto LaTeX
+" NORMAL MODE
+	" Testo centrato
+	autocmd Filetype markdown,rmd,md nmap <leader>tc o\begin{center}<enter><tab><enter>\end{center}<enter><++><esc>kki
+	autocmd Filetype tex nmap <leader>tc o\begin{center}<enter><tab><enter>\end{center}<enter><++><esc>kki
+	" Testo a destra
+	autocmd Filetype markdown,rmd,md nmap <leader>tr o\begin{flushright}<enter><tab><enter>\end{flushright}<enter><++><esc>kki
+	autocmd Filetype tex nmap <leader>tr o\begin{flushright}<enter><tab><enter>\end{flushright}<enter><++><esc>kki
+	" Elenco puntato
+	autocmd Filetype tex nmap <leader>ti o\begin{itemize}<enter><tab><enter>\end{itemize}<enter><++><esc>kki
+	" Elenco numerato
+	autocmd Filetype tex nmap <leader>te o\begin{enumerate}<enter><tab><enter>\end{enumerate}<enter><++><esc>kki
 
-" Testo centrato
-autocmd Filetype markdown,rmd map <leader>k 0O\\begin{center}<esc>jjO\\end{center}
+" SCORCIATOIE MARKDOWN
 
-" Testo centrato in insert mode
-autocmd Filetype markdown,rmd inoremap xtc \begin{center}<Enter><Enter>\end{center}<esc>kA
-
-" Grassetto parola selezionata mentre si scrive / insert mode
-inoremap xbb <Esc>bi**<Esc>ea**
-
-" Grassetto in modalità visuale
-vnoremap <leader>b c**<Esc>pi**<Esc>
-
-" Corsivo in modalità visuale
-vnoremap <leader>i c_<Esc>pi_<Esc>
-
-" Link in modalità visuale
-vnoremap <leader>l c[<Esc>pi](<++>)
-
-" Link dalla clipboard di macOS in modalità visuale
-vnoremap <leader>p c[<Esc>pi](<Esc>"+pa)<Esc>
+	" Testo centrato in insert mode
+	autocmd Filetype markdown,rmd,md  inoremap xtc \begin{center}<Enter><Enter>\end{center}<enter><++><esc>kkA
+	" Grassetto parola selezionata mentre si scrive / insert mode
+	autocmd Filetype markdown,rmd,md inoremap xbb <Esc>bi**<Esc>ea**
+	" Grassetto in modalità visuale
+	autocmd Filetype markdown,rmd,md vnoremap <leader>b c**<Esc>pi**<Esc>
+	" Corsivo in modalità visuale
+	autocmd Filetype markdown,rmd,md vnoremap <leader>i c_<Esc>pi_<Esc>
+	" Link in modalità visuale
+	autocmd Filetype markdown,rmd,md vnoremap <leader>l c[<Esc>pi](<++>)
+	" Link dalla clipboard di macOS in modalità visuale
+	autocmd Filetype markdown,rmd,md vnoremap <leader>p c[<Esc>pi](<Esc>"+pa)<Esc>
 
 " Generale: converte accento e lettara in lettera accentata ed euro in €
 
