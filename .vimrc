@@ -208,6 +208,8 @@ inoremap `` ``<Left>
 	autocmd FileType tex inoremap xrf \href{}<Space><++><Esc>T{i
 	" Link a file
 	autocmd FileType tex inoremap xfr \href{run:}{<++>}<Space><++><Esc>T:i
+	" Nuovo Comando
+	autocmd FileType tex inoremap xnc \newcommand{\}{<++>}<Esc>T\i
 " VISUAL MODE
 	" Grassetto
 	autocmd Filetype tex vnoremap <leader>b c\textbf{<Esc>pi}<Esc>
