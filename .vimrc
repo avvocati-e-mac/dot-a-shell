@@ -11,6 +11,11 @@ au CursorHoldI * stopinsert
 " Possibilità di usare il mouse con Vim
 set mouse=a
 
+" Cursore sempre al centro dello schermo (orrizzontale così come verticale) DA
+" TESTARE
+set sidescrolloff=999
+set scrolloff=999
+
 " Configurazione Netrw (browser file di Vim)
 
 let g:netrw_banner = 0		  " Toglie la barra in alto di spiegazioni
